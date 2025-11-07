@@ -1,7 +1,98 @@
 import React from 'react';
 import '../styles/globals.css';
+import { photos, photoCategories } from '../data/images'; // Adjust import path as needed
 
 const Videos: React.FC = () => {
+  // Map photos to video cards
+  const videoCards = [
+    {
+      id: 1,
+      title: "Scholarship Award Ceremony 2024",
+      description: "Celebrating 50 students receiving educational scholarships",
+      duration: "5:30",
+      views: "1.2K views",
+      date: "2 weeks ago",
+      image: photos.find(p => p.id === 2)?.imageUrl || "/class.jpg" // Classroom Learning
+    },
+    {
+      id: 2,
+      title: "Women Entrepreneurship Program",
+      description: "Empowering women through business skills training",
+      duration: "8:15",
+      views: "2.1K views",
+      date: "1 month ago",
+      image: photos.find(p => p.id === 4)?.imageUrl || "/vocational.jpg" // Vocational Training
+    },
+    {
+      id: 3,
+      title: "Tree Planting Initiative",
+      description: "Community coming together for environmental conservation",
+      duration: "12:45",
+      views: "3.5K views",
+      date: "2 months ago",
+      image: photos.find(p => p.id === 6)?.imageUrl || "/tree.jpg" // Community Tree Planting
+    },
+    {
+      id: 4,
+      title: "Digital Literacy Program",
+      description: "Bridging the digital divide in rural communities",
+      duration: "6:20",
+      views: "1.8K views",
+      date: "3 months ago",
+      image: photos.find(p => p.id === 13)?.imageUrl || "/leaders.jpg" // Leadership Training
+    },
+    {
+      id: 5,
+      title: "Health Camp Success Story",
+      description: "Medical outreach serving 500+ community members",
+      duration: "10:10",
+      views: "4.2K views",
+      date: "4 months ago",
+      image: photos.find(p => p.id === 11)?.imageUrl || "/women.jpg" // Health Education
+    },
+    {
+      id: 6,
+      title: "Youth Leadership Forum",
+      description: "Empowering the next generation of community leaders",
+      duration: "7:35",
+      views: "2.9K views",
+      date: "5 months ago",
+      image: photos.find(p => p.id === 12)?.imageUrl || "/sports.jpg" // Youth Sports
+    }
+  ];
+
+  // Map categories to video categories
+  const videoCategoryCards = [
+    {
+      icon: "🎓",
+      title: "Education Programs",
+      description: "Classroom transformations, scholarship stories, and learning initiatives",
+      count: "12 videos",
+      image: photoCategories.find(c => c.id === 1)?.coverImage || "/classroom.jpg"
+    },
+    {
+      icon: "💼",
+      title: "Economic Empowerment",
+      description: "Entrepreneurship success stories and vocational training highlights",
+      count: "8 videos",
+      image: photoCategories.find(c => c.id === 2)?.coverImage || "/economic.jpg"
+    },
+    {
+      icon: "🌱",
+      title: "Environmental Projects",
+      description: "Sustainability initiatives and community conservation efforts",
+      count: "6 videos",
+      image: photoCategories.find(c => c.id === 3)?.coverImage || "/environment.jpg"
+    },
+    {
+      icon: "🤝",
+      title: "Community Stories",
+      description: "Personal journeys and community transformation narratives",
+      count: "15 videos",
+      image: photoCategories.find(c => c.id === 4)?.coverImage || "/community.jpg"
+    }
+  ];
+
   return (
     <div className="page-container">
       <div className="page-header">
@@ -24,7 +115,12 @@ const Videos: React.FC = () => {
           
           <div className="featured-video">
             <div className="video-container">
-              <div className="video-placeholder">
+              <div 
+                className="video-placeholder featured-video-bg"
+                style={{
+                  backgroundImage: `url(${photos.find(p => p.id === 8)?.imageUrl || '/sing.jpg'})`
+                }}
+              >
                 <div className="play-icon">▶</div>
                 <div className="video-overlay">
                   <h3>Millimani United: Our Impact Story</h3>
@@ -56,33 +152,20 @@ const Videos: React.FC = () => {
           </div>
           
           <div className="video-categories">
-            <div className="category-card">
-              <div className="category-icon">🎓</div>
-              <h3>Education Programs</h3>
-              <p>Classroom transformations, scholarship stories, and learning initiatives</p>
-              <span className="video-count">12 videos</span>
-            </div>
-            
-            <div className="category-card">
-              <div className="category-icon">💼</div>
-              <h3>Economic Empowerment</h3>
-              <p>Entrepreneurship success stories and vocational training highlights</p>
-              <span className="video-count">8 videos</span>
-            </div>
-            
-            <div className="category-card">
-              <div className="category-icon">🌱</div>
-              <h3>Environmental Projects</h3>
-              <p>Sustainability initiatives and community conservation efforts</p>
-              <span className="video-count">6 videos</span>
-            </div>
-            
-            <div className="category-card">
-              <div className="category-icon">🤝</div>
-              <h3>Community Stories</h3>
-              <p>Personal journeys and community transformation narratives</p>
-              <span className="video-count">15 videos</span>
-            </div>
+            {videoCategoryCards.map((category, index) => (
+              <div 
+                key={index}
+                className="category-card"
+                style={{
+                  backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7)), url(${category.image})`
+                }}
+              >
+                <div className="category-icon">{category.icon}</div>
+                <h3>{category.title}</h3>
+                <p>{category.description}</p>
+                <span className="video-count">{category.count}</span>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -97,113 +180,29 @@ const Videos: React.FC = () => {
           </div>
           
           <div className="video-gallery">
-            {/* Video 1 */}
-            <div className="video-card">
-              <div className="video-thumbnail">
-                <div className="thumbnail-placeholder">
-                  <div className="play-button">▶</div>
+            {videoCards.map((video) => (
+              <div key={video.id} className="video-card">
+                <div className="video-thumbnail">
+                  <div 
+                    className="thumbnail-image"
+                    style={{
+                      backgroundImage: `url(${video.image})`
+                    }}
+                  >
+                    <div className="play-button">▶</div>
+                    <div className="video-duration">{video.duration}</div>
+                  </div>
                 </div>
-                <div className="video-duration">5:30</div>
-              </div>
-              <div className="video-details">
-                <h3>Scholarship Award Ceremony 2024</h3>
-                <p>Celebrating 50 students receiving educational scholarships</p>
-                <div className="video-meta">
-                  <span className="views">1.2K views</span>
-                  <span className="date">2 weeks ago</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Video 2 */}
-            <div className="video-card">
-              <div className="video-thumbnail">
-                <div className="thumbnail-placeholder">
-                  <div className="play-button">▶</div>
-                </div>
-                <div className="video-duration">8:15</div>
-              </div>
-              <div className="video-details">
-                <h3>Women Entrepreneurship Program</h3>
-                <p>Empowering women through business skills training</p>
-                <div className="video-meta">
-                  <span className="views">2.1K views</span>
-                  <span className="date">1 month ago</span>
+                <div className="video-details">
+                  <h3>{video.title}</h3>
+                  <p>{video.description}</p>
+                  <div className="video-meta">
+                    <span className="views">{video.views}</span>
+                    <span className="date">{video.date}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* Video 3 */}
-            <div className="video-card">
-              <div className="video-thumbnail">
-                <div className="thumbnail-placeholder">
-                  <div className="play-button">▶</div>
-                </div>
-                <div className="video-duration">12:45</div>
-              </div>
-              <div className="video-details">
-                <h3>Tree Planting Initiative</h3>
-                <p>Community coming together for environmental conservation</p>
-                <div className="video-meta">
-                  <span className="views">3.5K views</span>
-                  <span className="date">2 months ago</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Video 4 */}
-            <div className="video-card">
-              <div className="video-thumbnail">
-                <div className="thumbnail-placeholder">
-                  <div className="play-button">▶</div>
-                </div>
-                <div className="video-duration">6:20</div>
-              </div>
-              <div className="video-details">
-                <h3>Digital Literacy Program</h3>
-                <p>Bridging the digital divide in rural communities</p>
-                <div className="video-meta">
-                  <span className="views">1.8K views</span>
-                  <span className="date">3 months ago</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Video 5 */}
-            <div className="video-card">
-              <div className="video-thumbnail">
-                <div className="thumbnail-placeholder">
-                  <div className="play-button">▶</div>
-                </div>
-                <div className="video-duration">10:10</div>
-              </div>
-              <div className="video-details">
-                <h3>Health Camp Success Story</h3>
-                <p>Medical outreach serving 500+ community members</p>
-                <div className="video-meta">
-                  <span className="views">4.2K views</span>
-                  <span className="date">4 months ago</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Video 6 */}
-            <div className="video-card">
-              <div className="video-thumbnail">
-                <div className="thumbnail-placeholder">
-                  <div className="play-button">▶</div>
-                </div>
-                <div className="video-duration">7:35</div>
-              </div>
-              <div className="video-details">
-                <h3>Youth Leadership Forum</h3>
-                <p>Empowering the next generation of community leaders</p>
-                <div className="video-meta">
-                  <span className="views">2.9K views</span>
-                  <span className="date">5 months ago</span>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 

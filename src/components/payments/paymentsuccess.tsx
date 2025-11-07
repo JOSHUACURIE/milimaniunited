@@ -2,7 +2,7 @@
 import React from 'react';
 
 interface PaymentSuccessProps {
-  data: {
+  data?: {
     amount: number;
     currency: string;
     paymentMethod: string;
@@ -10,10 +10,31 @@ interface PaymentSuccessProps {
     transactionId: string;
     timestamp: string;
   };
-  onNewDonation: () => void;
+  onNewDonation?: () => void;
 }
 
 const PaymentSuccess: React.FC<PaymentSuccessProps> = ({ data, onNewDonation }) => {
+  // If no data provided, show generic success message
+  if (!data) {
+    return (
+      <div className="payment-success">
+        <div className="success-icon">✅</div>
+        <h2>Thank You for Your Donation!</h2>
+        <p>Your support means the world to us and the communities we serve.</p>
+        <div className="success-actions">
+          {onNewDonation && (
+            <button onClick={onNewDonation} className="new-donation-btn">
+              Make Another Donation
+            </button>
+          )}
+          <a href="/impact" className="impact-link">
+            See Our Impact
+          </a>
+        </div>
+      </div>
+    );
+  }
+
   const getPaymentMethodName = (method: string) => {
     switch (method) {
       case 'mpesa': return 'M-Pesa';
@@ -77,9 +98,11 @@ const PaymentSuccess: React.FC<PaymentSuccessProps> = ({ data, onNewDonation }) 
       </div>
 
       <div className="success-actions">
-        <button onClick={onNewDonation} className="new-donation-btn">
-          Make Another Donation
-        </button>
+        {onNewDonation && (
+          <button onClick={onNewDonation} className="new-donation-btn">
+            Make Another Donation
+          </button>
+        )}
         <a href="/impact" className="impact-link">
           See Our Impact
         </a>

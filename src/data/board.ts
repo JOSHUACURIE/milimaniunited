@@ -57,7 +57,7 @@ export const boardMembers: BoardMember[] = [
     expertise: ["Technology", "Digital Inclusion", "Innovation"],
     emoji: "👨‍💻",
     featured: false,
-    imageUrl: "/images/board/joseph-orlale.jpg",
+    imageUrl: "/michael.jpg",
     altText: "Michael Odhiambo- Technology Entrepreneur"
   },
   {
@@ -156,7 +156,7 @@ export const boardCommittees: BoardCommittee[] = [
     expertise: ["Technology", "Digital Inclusion", "Innovation"],
     emoji: "👨‍💻",
     featured: false,
-    imageUrl: "/images/board/joseph-orlale.jpg",
+    imageUrl: "/michael.jpg",
     altText: "Michael Odhiambo- Technology Entrepreneur"
   },
   {
