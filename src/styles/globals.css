@@ -272,7 +272,7 @@ body {
 
 /* Mobile Menu Toggle - MOVED OUTSIDE NAVIGATION SECTION */
 .mobile-menu-toggle {
-  display: none; /* Hidden by default */
+
   flex-direction: column;
   background: none;
   border: none;
