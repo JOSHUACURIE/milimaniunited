@@ -213,7 +213,6 @@ body {
 .logo-xlarge .logo-subtitle {
   font-size: 1.1rem;
 }
-
 /* Navigation Dropdown Styles */
 .nav-dropdown {
   position: absolute;
@@ -270,7 +269,7 @@ body {
   }
 }
 
-/* Mobile Menu Toggle - MOVED OUTSIDE NAVIGATION SECTION */
+/* Mobile Menu Toggle - FIXED VERSION */
 .mobile-menu-toggle {
   display: none; /* Hidden by default */
   flex-direction: column;
@@ -291,15 +290,16 @@ body {
   transform-origin: center;
 }
 
-.hamburger-line.active:nth-child(1) {
+/* FIX: Apply active state to the toggle button, not the individual lines */
+.mobile-menu-toggle.active .hamburger-line:nth-child(1) {
   transform: rotate(45deg) translate(6px, 6px);
 }
 
-.hamburger-line.active:nth-child(2) {
+.mobile-menu-toggle.active .hamburger-line:nth-child(2) {
   opacity: 0;
 }
 
-.hamburger-line.active:nth-child(3) {
+.mobile-menu-toggle.active .hamburger-line:nth-child(3) {
   transform: rotate(-45deg) translate(6px, -6px);
 }
 
@@ -415,6 +415,7 @@ body {
     right: 0.5rem;
   }
 }
+
 .donate-button {
   background-color: rgb(192, 63, 63);
   color: var(--white);
@@ -425,9 +426,6 @@ body {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-
-
-
 /* Hero Section */
 .hero {
   position: relative;
