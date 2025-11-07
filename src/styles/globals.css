@@ -1868,7 +1868,15 @@ body {
     right: 0.5rem;
   }
 }
+/* Hide logo text */
+.logo-text {
+  display: none !important;
+}
 
+.logo-primary,
+.logo-subtitle {
+  display: none !important;
+}
 .donate-button {
   background-color: rgb(192, 63, 63);
   color: var(--white);

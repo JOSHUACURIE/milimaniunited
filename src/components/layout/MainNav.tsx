@@ -55,7 +55,8 @@ const MainNav: React.FC<MainNavProps> = ({ items }) => {
   return (
     <nav className="main-navigation">
       <div className="navigation-container">
-        <Logo />
+        {/* Logo without text - pass showText prop as false */}
+        <Logo showText={false} />
         
         {/* Mobile Menu Toggle Button */}
         <button 
@@ -107,10 +108,11 @@ const MainNav: React.FC<MainNavProps> = ({ items }) => {
                 </span>
               )}
               
+              {/* FIX: Always render NavDropdown but control visibility */}
               {item.children && (
                 <NavDropdown
                   items={item.children}
-                  isVisible={activeDropdown === item.id || (!isMobile && activeDropdown === item.id)}
+                  isVisible={activeDropdown === item.id}
                   onItemClick={closeMobileMenu}
                 />
               )}
