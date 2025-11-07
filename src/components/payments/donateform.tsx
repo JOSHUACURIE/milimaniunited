@@ -44,7 +44,7 @@ const DonationForm: React.FC<DonationFormProps> = ({ onSuccess, onError }) => {
   const [cardNumber, setCardNumber] = useState<string>('');
   const [expiryDate, setExpiryDate] = useState<string>('');
   const [cvv, setCvv] = useState<string>('');
-  const [country, setCountry] = useState<string>('KE');
+  const [country] = useState<string>('KE');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [mpesaPolling, setMpesaPolling] = useState<boolean>(false);

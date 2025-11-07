@@ -52,7 +52,7 @@ const AlbumGallery: React.FC = () => {
           </span>
         </div>
         <div className="album-preview">
-          {album.images.slice(0, 3).map((image, index) => (
+          {album.images.slice(0, 3).map((image) => (
             <div 
               key={image.id}
               className="preview-image"

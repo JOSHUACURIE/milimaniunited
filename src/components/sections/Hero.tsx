@@ -165,13 +165,7 @@ const Hero: React.FC = () => {
     }, 500);
   };
 
-  const goToImage = (index: number) => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentImageIndex(index);
-      setIsTransitioning(false);
-    }, 500);
-  };
+ 
 
   return (
     <section className="hero">
