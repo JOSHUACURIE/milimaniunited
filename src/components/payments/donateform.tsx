@@ -140,48 +140,70 @@ const DonationForm: React.FC<DonationFormProps> = ({ onSuccess, onError }) => {
 
     return true;
   };
+const handleDonation = async (e: React.FormEvent) => {
+  e.preventDefault();
+  
+  if (!validateForm()) {
+    return;
+  }
 
-  const handleDonation = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
+  setIsLoading(true);
+
+  try {
+    const donationData = {
+      amount: parseFloat(amount),
+      currency,
+      paymentMethod,
+      phoneNumber: paymentMethod === 'mpesa' ? formatPhoneNumber(phoneNumber) : undefined,
+      email: paymentMethod === 'card' ? email : undefined,
+      name: paymentMethod === 'card' ? name : undefined,
+      country
+    };
+
+    let response;
+
+    if (paymentMethod === 'mpesa') {
+      // Call M-Pesa backend
+      response = await fetch('/api/mpesa/initiate-payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(donationData),
+      });
+    } else if (paymentMethod === 'card') {
+      // Call Stripe backend
+      response = await fetch('/api/stripe/create-payment-intent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(donationData),
+      });
     }
 
-    setIsLoading(true);
+    const result = await response.json();
 
-    try {
-      const donationData = {
+    if (result.success) {
+      onSuccess?.({
+        transactionId: result.checkoutRequestID || result.paymentIntentId,
         amount: parseFloat(amount),
         currency,
         paymentMethod,
-        phoneNumber: paymentMethod === 'mpesa' ? formatPhoneNumber(phoneNumber) : undefined,
-        email: paymentMethod === 'card' ? email : undefined,
-        name: paymentMethod === 'card' ? name : undefined,
-        cardNumber: paymentMethod === 'card' ? cardNumber.replace(/\s/g, '') : undefined,
-        expiryDate: paymentMethod === 'card' ? expiryDate : undefined,
-        cvv: paymentMethod === 'card' ? cvv : undefined,
-        country
-      };
-
-      // Simulate payment processing
-      setTimeout(() => {
-        setIsLoading(false);
-        onSuccess?.({
-          transactionId: (paymentMethod === 'mpesa' ? 'MPESA' : 'CARD') + Date.now(),
-          amount: parseFloat(amount),
-          currency,
-          paymentMethod,
-          phoneNumber: donationData.phoneNumber,
-          timestamp: new Date().toISOString()
-        });
-      }, 2000);
-
-    } catch (error) {
-      setIsLoading(false);
-      onError?.('Payment failed. Please try again.');
+        ...donationData,
+        timestamp: new Date().toISOString()
+      });
+    } else {
+      onError?.(result.error || 'Payment failed. Please try again.');
     }
-  };
+
+  } catch (error) {
+    console.error('Payment error:', error);
+    onError?.('Payment failed. Please try again.');
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   const renderPaymentFields = () => {
     switch (paymentMethod) {
