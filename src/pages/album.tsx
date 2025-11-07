@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './album.css';
-import { albums, getFeaturedAlbums, getRecentAlbums,type Album } from '../data/album';
+import { albums, getFeaturedAlbums, getRecentAlbums, type Album } from '../data/album';
 
 const AlbumGallery: React.FC = () => {
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const featuredAlbums = getFeaturedAlbums();
   const recentAlbums = getRecentAlbums();
   
-  // Get unique categories for filtering
+
   const categories = [...new Set(albums.map(album => album.category))];
+
+
+  const filteredAlbums = selectedCategory === 'all' 
+    ? albums 
+    : albums.filter(album => album.category === selectedCategory);
+
+  const handleViewAlbum = (albumId: number) => {
+    const album = albums.find(a => a.id === albumId);
+    if (album) {
+      alert(`Opening album: ${album.title}\nThis would navigate to the album detail page.`);
+    }
+  };
 
   const renderAlbumCard = (album: Album) => (
     <div key={album.id} className="album-card">
@@ -16,8 +29,14 @@ const AlbumGallery: React.FC = () => {
         style={{ backgroundImage: `url(${album.coverImage})` }}
       >
         <div className="album-overlay">
-          <div className="photo-count">{album.images.length} photos</div>
-          <button className="view-album-btn">View Album</button>
+          
+          <button 
+            className="view-album-btn"
+            onClick={() => handleViewAlbum(album.id)}
+            aria-label={`View ${album.title} album`}
+          >
+            View Album
+          </button>
         </div>
       </div>
       <div className="album-details">
@@ -43,6 +62,7 @@ const AlbumGallery: React.FC = () => {
           {album.images.length > 3 && (
             <div className="more-photos">+{album.images.length - 3} more</div>
           )}
+         
         </div>
       </div>
     </div>
@@ -61,7 +81,7 @@ const AlbumGallery: React.FC = () => {
       </div>
 
       <div className="page-content">
-        {/* Featured Albums */}
+   
         {featuredAlbums.length > 0 && (
           <section className="content-section">
             <div className="section-header">
@@ -87,30 +107,41 @@ const AlbumGallery: React.FC = () => {
 
           {/* Category Filter */}
           <div className="category-filters">
-            <button className="filter-btn active">All Albums</button>
+            <button 
+              className={`filter-btn ${selectedCategory === 'all' ? 'active' : ''}`}
+              onClick={() => setSelectedCategory('all')}
+            >
+              All Albums
+            </button>
             {categories.map(category => (
-              <button key={category} className="filter-btn">
+              <button 
+                key={category} 
+                className={`filter-btn ${selectedCategory === category ? 'active' : ''}`}
+                onClick={() => setSelectedCategory(category)}
+              >
                 {category}
               </button>
             ))}
           </div>
 
           <div className="albums-grid">
-            {albums.map(renderAlbumCard)}
+            {filteredAlbums.map(renderAlbumCard)}
           </div>
         </section>
 
         {/* Recent Albums */}
-        <section className="content-section">
-          <div className="section-header">
-            <h2>Recently Updated</h2>
-            <div className="section-divider"></div>
-          </div>
-          
-          <div className="albums-grid">
-            {recentAlbums.map(renderAlbumCard)}
-          </div>
-        </section>
+        {recentAlbums.length > 0 && (
+          <section className="content-section">
+            <div className="section-header">
+              <h2>Recently Updated</h2>
+              <div className="section-divider"></div>
+            </div>
+            
+            <div className="albums-grid">
+              {recentAlbums.map(renderAlbumCard)}
+            </div>
+          </section>
+        )}
 
         {/* Stats Section */}
         <section className="content-section stats-section">

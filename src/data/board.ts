@@ -69,7 +69,7 @@ export const boardMembers: BoardMember[] = [
     expertise: ["Financial Strategy", "Investment Management", "Risk Assessment"],
     emoji: "💼",
     featured: false,
-    imageUrl: "/images/board/victor-otieno.jpg",
+    imageUrl: "/victor.jpg",
     altText: "Victor Otieno - Financial Strategist"
   },
   {
@@ -168,7 +168,7 @@ export const boardCommittees: BoardCommittee[] = [
     expertise: ["Financial Strategy", "Investment Management", "Risk Assessment"],
     emoji: "💼",
     featured: false,
-    imageUrl: "/images/board/victor-otieno.jpg",
+    imageUrl: "/victor.jpg",
     altText: "Victor Otieno - Financial Strategist"
   },
   {

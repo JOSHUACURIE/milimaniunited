@@ -168,7 +168,7 @@ const SeniorManagement: React.FC = () => {
               </div>
             </div>
 
-            {/* Community Engagement Director */}
+  
             <div className="management-card">
               <div className="management-photo">
                 <div className="photo-placeholder">{communityDirector?.emoji || "👩‍⚕️"}</div>

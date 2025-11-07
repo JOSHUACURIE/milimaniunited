@@ -20,7 +20,7 @@ export const albums: Album[] = [
   {
     id: 1,
     title: "Annual Community Festival 2024",
-    coverImage: "/annual.jpg",
+    coverImage: "/mazingira.jpg",
     photoCount: 45,
     date: "2024-03-15",
     category: "Community Events",
@@ -28,7 +28,7 @@ export const albums: Album[] = [
     images: [
       {
         id: 8,
-        imageUrl: "/sing.jpg",
+        imageUrl: "/energy.jpg",
         featured: true
       }
     ]
@@ -180,6 +180,7 @@ export const allImageFiles: string[] = [
   
   // Album images
   "/sing.jpg",
+  "/health.jpg",
   "/class.jpg",
   "/vocational.jpg",
   "/tree.jpg",

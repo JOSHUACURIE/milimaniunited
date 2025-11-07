@@ -1,35 +1,33 @@
 import React from 'react';
-import '../styles/globals.css';
+import './board.css';
 import { boardMembers, boardResponsibilities } from '../data/board';
 
 const Board: React.FC = () => {
   const renderBoardMember = (member: typeof boardMembers[0]) => (
-    <div key={member.id} className={`board-member-card ${member.featured ? 'featured' : ''}`}>
-      <div className="member-photo">
-        {/* Image with fallback to emoji */}
-        <div className="photo-container">
+    <div key={member.id} className={`leadership-card ${member.featured ? 'leadership-featured' : ''}`}>
+      <div className="leader-photo-section">
+        <div className="photo-wrapper">
           <img 
             src={member.imageUrl} 
             alt={member.altText}
-            className="member-image"
+            className="leader-image"
             onError={(e) => {
-              // If image fails to load, show emoji placeholder
               const target = e.target as HTMLImageElement;
               target.style.display = 'none';
-              target.nextElementSibling?.classList.remove('hidden');
+              target.nextElementSibling?.classList.remove('photo-fallback-hidden');
             }}
           />
-          <div className="photo-placeholder hidden">{member.emoji}</div>
+          <div className="photo-fallback photo-fallback-hidden">{member.emoji}</div>
         </div>
-        <div className="member-role-badge">{member.role}</div>
+        <div className="leader-role-badge">{member.role}</div>
       </div>
-      <div className="member-info">
-        <h3>{member.name}</h3>
-        <p className="member-title">{member.title}</p>
-        <p className="member-bio">{member.bio}</p>
-        <div className="member-expertise">
+      <div className="leader-details">
+        <h3 className="leader-name">{member.name}</h3>
+        <p className="leader-position">{member.title}</p>
+        <p className="leader-biography">{member.bio}</p>
+        <div className="leader-skills">
           {member.expertise.map((skill, index) => (
-            <span key={index} className="expertise-tag">
+            <span key={index} className="skill-tag">
               {skill}
             </span>
           ))}
@@ -39,52 +37,51 @@ const Board: React.FC = () => {
   );
 
   return (
-    <div className="page-container">
-      <div className="page-header">
-        <div className="breadcrumb">
+    <div className="board-container">
+      <div className="board-header">
+        <div className="board-breadcrumb">
           <a href="/">Home</a> &gt; <a href="/governance">Governance</a> &gt; <span>Board of Directors</span>
         </div>
-        <h1 className="page-title">Board of Directors</h1>
-        <p className="page-subtitle">
+        <h1 className="board-main-title">Board of Directors</h1>
+        <p className="board-subtitle">
           Meet the visionary leaders guiding our strategic direction and ensuring organizational excellence
         </p>
       </div>
 
-      <div className="page-content">
-     
-        <section className="content-section">
-          <div className="section-header">
-            <h2>Strategic Leadership</h2>
-            <div className="section-divider"></div>
-            <p className="section-description">
+      <div className="board-main-content">
+        {/* Strategic Leadership Section */}
+        <section className="board-section">
+          <div className="section-heading-block">
+            <h2 className="section-heading">Strategic Leadership</h2>
+            <div className="heading-divider"></div>
+            <p className="section-intro">
               Our Board of Directors comprises distinguished professionals who bring diverse expertise 
               and unwavering commitment to our mission of community transformation.
             </p>
           </div>
         </section>
 
-      
-        <section className="content-section">
-          <div className="board-members-grid">
+        {/* Board Members Grid */}
+        <section className="board-section">
+          <div className="leaders-grid">
             {boardMembers.map(renderBoardMember)}
           </div>
         </section>
 
-      
-      
-        <section className="content-section">
-          <div className="section-header">
-            <h2>Board Responsibilities</h2>
-            <div className="section-divider"></div>
+        {/* Board Responsibilities */}
+        <section className="board-section">
+          <div className="section-heading-block">
+            <h2 className="section-heading">Board Responsibilities</h2>
+            <div className="heading-divider"></div>
           </div>
           
-          <div className="responsibilities-list">
+          <div className="responsibilities-container">
             {boardResponsibilities.map(responsibility => (
-              <div key={responsibility.id} className="responsibility-item">
+              <div key={responsibility.id} className="responsibility-block">
                 <div className="responsibility-icon">{responsibility.icon}</div>
-                <div className="responsibility-content">
-                  <h4>{responsibility.title}</h4>
-                  <p>{responsibility.description}</p>
+                <div className="responsibility-info">
+                  <h4 className="responsibility-title">{responsibility.title}</h4>
+                  <p className="responsibility-description">{responsibility.description}</p>
                 </div>
               </div>
             ))}
@@ -92,18 +89,18 @@ const Board: React.FC = () => {
         </section>
 
         {/* Call to Action */}
-        <section className="cta-section">
-          <div className="cta-content">
-            <h2>Governed with Excellence</h2>
-            <p>
+        <section className="board-cta-section">
+          <div className="cta-content-block">
+            <h2 className="cta-main-heading">Governed with Excellence</h2>
+            <p className="cta-description">
               Our Board of Directors ensures that every initiative aligns with our mission 
               and delivers maximum impact to the communities we serve.
             </p>
-            <div className="cta-buttons">
-              <a href="/governance/management" className="cta-button primary">
+            <div className="cta-actions">
+              <a href="/governance/management" className="cta-action-button primary-action">
                 Meet Our Management Team
               </a>
-              <a href="/contact" className="cta-button secondary">
+              <a href="/contact" className="cta-action-button secondary-action">
                 Contact the Board
               </a>
             </div>
