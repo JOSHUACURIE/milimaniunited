@@ -26,7 +26,7 @@ const MainNav: React.FC<MainNavProps> = ({ items }) => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
     if (!isMobileMenuOpen) {
-      setActiveDropdown(null); // Close all dropdowns when opening mobile menu
+      setActiveDropdown(null);
     }
   };
 
@@ -53,40 +53,40 @@ const MainNav: React.FC<MainNavProps> = ({ items }) => {
   };
 
   return (
-    <nav className="main-nav">
-      <div className="nav-container">
+    <nav className="main-navigation">
+      <div className="navigation-container">
         <Logo />
         
-        {/* Mobile Menu Toggle Button - UPDATED TO MATCH CSS */}
+        {/* Mobile Menu Toggle Button */}
         <button 
-          className={`mobile-menu-toggle ${isMobileMenuOpen ? 'active' : ''}`}
+          className={`nav-toggle-btn ${isMobileMenuOpen ? 'nav-toggle-active' : ''}`}
           onClick={toggleMobileMenu}
           aria-label="Toggle navigation menu"
           aria-expanded={isMobileMenuOpen}
         >
-          <span className="hamburger-line"></span>
-          <span className="hamburger-line"></span>
-          <span className="hamburger-line"></span>
+          <span className="toggle-line"></span>
+          <span className="toggle-line"></span>
+          <span className="toggle-line"></span>
         </button>
         
-        <ul className={`nav-menu ${isMobileMenuOpen ? 'nav-menu-open' : ''}`}>
+        <ul className={`navigation-list ${isMobileMenuOpen ? 'nav-list-open' : ''}`}>
           {items.map((item) => (
             <li
               key={item.id}
-              className={`nav-item ${activeDropdown === item.id ? 'active' : ''}`}
+              className={`navigation-item ${activeDropdown === item.id ? 'item-active' : ''}`}
               onMouseEnter={() => !isMobile && setActiveDropdown(item.id)}
               onMouseLeave={() => !isMobile && setActiveDropdown(null)}
             >
               {item.href ? (
                 <a 
                   href={item.href} 
-                  className="nav-link"
+                  className="nav-item-link"
                   onClick={(e) => handleNavLinkClick(item, e)}
                 >
                   {item.label}
                   {item.children && (
                     <span 
-                      className={`mobile-dropdown-toggle ${activeDropdown === item.id ? 'active' : ''}`}
+                      className={`mobile-arrow ${activeDropdown === item.id ? 'arrow-active' : ''}`}
                       onClick={(e) => handleDropdownToggle(item.id, e)}
                     >
                       ▼
@@ -95,12 +95,12 @@ const MainNav: React.FC<MainNavProps> = ({ items }) => {
                 </a>
               ) : (
                 <span 
-                  className="nav-link"
+                  className="nav-item-link"
                   onClick={(e) => item.children && handleDropdownToggle(item.id, e)}
                 >
                   {item.label}
                   {item.children && (
-                    <span className={`mobile-dropdown-toggle ${activeDropdown === item.id ? 'active' : ''}`}>
+                    <span className={`mobile-arrow ${activeDropdown === item.id ? 'arrow-active' : ''}`}>
                       ▼
                     </span>
                   )}
@@ -121,7 +121,7 @@ const MainNav: React.FC<MainNavProps> = ({ items }) => {
         {/* Mobile Menu Overlay */}
         {isMobileMenuOpen && (
           <div 
-            className="mobile-menu-overlay"
+            className="mobile-nav-overlay"
             onClick={closeMobileMenu}
           ></div>
         )}
