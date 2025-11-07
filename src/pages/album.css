@@ -84,27 +84,231 @@
   letter-spacing: 0.5px;
 }
 
-.view-album-button {
+/* View Album Button Styles - Always Visible at Bottom */
+.view-album-btn {
   background: var(--earth-green);
   color: var(--white);
   border: none;
-  padding: 1rem 2rem;
-  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  min-width: 120px;
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 10;
 }
 
-.view-album-button:hover {
+.view-album-btn:hover {
   background: #1e3d1a;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+  transform: translateX(-50%) translateY(2px); /* Moves down slightly on hover */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
+.view-album-btn:active {
+  transform: translateX(-50%) translateY(4px); /* Moves down further when clicked */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  transition: all 0.1s ease;
+}
+
+/* Album Overlay - Always visible button, no hover needed */
+.album-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 2rem;
+  opacity: 1; /* Always visible */
+  transition: all 0.3s ease;
+}
+
+/* Photo count positioning */
+.photo-count {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--earth-green);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 10;
+}
+
+/* Remove hover effects that hide/show overlay */
+.album-cover-image:hover .album-overlay {
+  opacity: 1; /* Keep it always visible */
+}
+
+/* Alternative: Minimal overlay version */
+.album-card.alternative .album-overlay {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+}
+
+.album-card.alternative .view-album-btn {
+  bottom: 0.5rem;
+  background: rgba(76, 175, 80, 0.95);
+  backdrop-filter: blur(5px);
+}
+
+.album-card.alternative .view-album-btn:hover {
+  background: rgba(30, 61, 26, 0.95);
+}
+
+/* Ensure album cover image has proper positioning */
+.album-cover-image {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Category Filter Buttons */
+.category-filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 0.75rem 1.5rem;
+ 
+  background: transparent;
+  color: var(--earth-green);
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  transform: translateY(0);
+}
+
+.filter-btn:hover {
+  background: var(--earth-green);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.2);
+}
+
+.filter-btn.active {
+  background: var(--earth-green);
+  color: var(--white);
+  transform: translateY(0);
+}
+
+/* Enhanced button states */
+.view-album-btn:focus {
+  outline: 2px solid var(--white);
+  outline-offset: 2px;
+}
+
+.view-album-btn:disabled {
+  background: var(--sage-green);
+  cursor: not-allowed;
+  transform: translateX(-50%) translateY(0);
+  box-shadow: none;
+}
+
+.view-album-btn:disabled:hover {
+  transform: translateX(-50%) translateY(0);
+  box-shadow: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .category-filters {
+    justify-content: center;
+  }
+  
+  .filter-btn {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+  }
+  
+  .view-album-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+    min-width: 100px;
+    bottom: 0.75rem;
+  }
+  
+  .view-album-btn:hover {
+    transform: translateX(-50%) translateY(1px);
+  }
+  
+  .album-overlay {
+    padding-bottom: 1.5rem;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .view-album-btn {
+    min-width: 90px;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    bottom: 0.5rem;
+  }
+  
+  .photo-count {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+/* Loading state animation */
+.view-album-btn.loading {
+  position: relative;
+  color: transparent;
+}
+
+.view-album-btn.loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+  border: 2px solid transparent;
+  border-top-color: var(--white);
+  border-radius: 50%;
+  animation: buttonSpin 0.8s linear infinite;
+}
+
+@keyframes buttonSpin {
+  0% { transform: translateX(-50%) rotate(0deg); }
+  100% { transform: translateX(-50%) rotate(360deg); }
+}
 /* Photo Categories */
 .photo-categories {
   display: grid;

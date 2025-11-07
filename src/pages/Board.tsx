@@ -51,7 +51,7 @@ const Board: React.FC = () => {
       </div>
 
       <div className="page-content">
-        {/* Board Introduction */}
+     
         <section className="content-section">
           <div className="section-header">
             <h2>Strategic Leadership</h2>
@@ -63,7 +63,7 @@ const Board: React.FC = () => {
           </div>
         </section>
 
-        {/* Board Members Grid */}
+      
         <section className="content-section">
           <div className="board-members-grid">
             {boardMembers.map(renderBoardMember)}
@@ -71,7 +71,7 @@ const Board: React.FC = () => {
         </section>
 
       
-        {/* Board Responsibilities */}
+      
         <section className="content-section">
           <div className="section-header">
             <h2>Board Responsibilities</h2>

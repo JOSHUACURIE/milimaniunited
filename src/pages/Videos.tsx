@@ -83,14 +83,8 @@ const Videos: React.FC = () => {
       description: "Sustainability initiatives and community conservation efforts",
       count: "6 videos",
       image: photoCategories.find(c => c.id === 3)?.coverImage || "/environment.jpg"
-    },
-    {
-      icon: "🤝",
-      title: "Community Stories",
-      description: "Personal journeys and community transformation narratives",
-      count: "15 videos",
-      image: photoCategories.find(c => c.id === 4)?.coverImage || "/community.jpg"
     }
+
   ];
 
   return (
@@ -117,9 +111,7 @@ const Videos: React.FC = () => {
             <div className="video-container">
               <div 
                 className="video-placeholder featured-video-bg"
-                style={{
-                  backgroundImage: `url(${photos.find(p => p.id === 8)?.imageUrl || '/sing.jpg'})`
-                }}
+             
               >
                 <div className="play-icon">▶</div>
                 <div className="video-overlay">
@@ -156,14 +148,12 @@ const Videos: React.FC = () => {
               <div 
                 key={index}
                 className="category-card"
-                style={{
-                  backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7)), url(${category.image})`
-                }}
+               
               >
                 <div className="category-icon">{category.icon}</div>
                 <h3>{category.title}</h3>
                 <p>{category.description}</p>
-                <span className="video-count">{category.count}</span>
+                
               </div>
             ))}
           </div>

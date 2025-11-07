@@ -1,6 +1,6 @@
 import React from 'react';
 import './album.css';
-import { albums, getFeaturedAlbums, getRecentAlbums, getAlbumsByCategory,type Album } from '../data/album';
+import { albums, getFeaturedAlbums, getRecentAlbums,type Album } from '../data/album';
 
 const AlbumGallery: React.FC = () => {
   const featuredAlbums = getFeaturedAlbums();
